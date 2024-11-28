@@ -40,6 +40,14 @@ export function PhotosPage() {
     });
   };
 
+  const handleDestroy = (photo) => {
+    console.log("handleDestroy", photo);
+    axios.delete(`/photos/${photo.id}.json`).then(() => {
+      setPhotos(photos.filter((p) => p.id !== photo.id));
+      setIsPhotosShowVisible(false);
+    });
+  };
+
   useEffect(handleIndex, []);
 
   return (
@@ -47,7 +55,7 @@ export function PhotosPage() {
       <PhotosNew onCreate={handleCreate} />
       <PhotosIndex photos={photos} onShow={handleShow} />
       <Modal show={isPhotosShowVisible} onClose={() => setIsPhotosShowVisible(false)}>
-        <PhotosShow photo={currentPhoto} onUpdate={handleUpdate} />
+        <PhotosShow photo={currentPhoto} onUpdate={handleUpdate} onDestroy={handleDestroy} />
       </Modal>
     </main>
   );

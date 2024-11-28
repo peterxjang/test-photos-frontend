@@ -1,9 +1,10 @@
-export function PhotosShow({ photo, onUpdate }) {
+export function PhotosShow({ photo, onUpdate, onDestroy }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
     onUpdate(photo, params, () => event.target.reset());
   };
+
   return (
     <div>
       <h1>Photo information</h1>
@@ -22,6 +23,7 @@ export function PhotosShow({ photo, onUpdate }) {
         </div>
         <button type="submit">Update</button>
       </form>
+      <button onClick={() => onDestroy(photo)}>Destroy</button>
     </div>
   );
 }
