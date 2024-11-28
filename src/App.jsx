@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Header } from "./Header";
+import { SignupPage } from "./SignupPage";
+import { LoginPage } from "./LoginPage";
 import { PhotosPage } from "./PhotosPage";
 import { Footer } from "./Footer";
 
@@ -10,6 +12,8 @@ function App() {
   return (
     <div>
       <Header />
+      <SignupPage />
+      <LoginPage />
       <PhotosPage />
       <Footer />
     </div>
