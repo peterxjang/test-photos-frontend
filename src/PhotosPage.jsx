@@ -2,9 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { PhotosIndex } from "./PhotosIndex";
 import { PhotosNew } from "./PhotosNew";
+import { PhotosShow } from "./PhotosShow";
+import { Modal } from "./Modal";
 
 export function PhotosPage() {
   const [photos, setPhotos] = useState([]);
+  const [isPhotosShowVisible, setIsPhotosShowVisible] = useState(false);
+  const [currentPhoto, setCurrentPhoto] = useState({});
 
   const handleIndex = () => {
     axios.get("/photos.json").then((response) => {
@@ -21,12 +25,21 @@ export function PhotosPage() {
     });
   };
 
+  const handleShow = (photo) => {
+    console.log("handleShow", photo);
+    setIsPhotosShowVisible(true);
+    setCurrentPhoto(photo);
+  };
+
   useEffect(handleIndex, []);
 
   return (
     <main>
       <PhotosNew onCreate={handleCreate} />
-      <PhotosIndex photos={photos} />
+      <PhotosIndex photos={photos} onShow={handleShow} />
+      <Modal show={isPhotosShowVisible} onClose={() => setIsPhotosShowVisible(false)}>
+        <PhotosShow photo={currentPhoto} />
+      </Modal>
     </main>
   );
 }
