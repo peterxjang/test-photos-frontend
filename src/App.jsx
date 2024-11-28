@@ -5,7 +5,8 @@ import { LoginPage } from "./LoginPage";
 import { PhotosPage } from "./PhotosPage";
 import { Footer } from "./Footer";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://test-photos-api.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {
